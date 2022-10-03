@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PlaceDetails: React.FC = () => {
-  return <div>index</div>;
+  return <div>PlaceDetails</div>;
 };
 
 export default PlaceDetails;

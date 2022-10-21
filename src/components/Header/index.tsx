@@ -4,7 +4,7 @@ import { AppBar, Toolbar, Typography, InputBase, Box } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import useStyles from './styles';
 
-const Header: React.FC = () => {
+const Header: React.FC = (): JSX.Element => {
   const classes = useStyles();
   return (
     <AppBar position="static">

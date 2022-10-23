@@ -17,7 +17,7 @@ const App: React.FC = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchData());
+    dispatch(fetchData(bounds));
   }, [dispatch, coordinates, bounds]);
 
   console.log(dataRestaurants);

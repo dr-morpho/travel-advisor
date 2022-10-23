@@ -4,11 +4,11 @@ import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
+import { MapProp } from '../../types';
 
-const Map: React.FC = (): JSX.Element => {
+const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX.Element => {
   const classes = useStyles();
   const isMobile = useMediaQuery('(min-width:600px)');
-  const coordinates = { lat: 0, lng: 0 };
 
   return (
     <div className={classes.mapContainer}>
@@ -19,7 +19,10 @@ const Map: React.FC = (): JSX.Element => {
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         // options={}
-        // onChange={}
+        onChange={(event) => {
+          setCoordinates({ lat: event.center.lat, lng: event.center.lng });
+          setBounds({ ne: event.marginBounds.ne, sw: event.marginBounds.sw });
+        }}
         // onChildClick={}
       ></GoogleMapReact>
     </div>

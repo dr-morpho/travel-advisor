@@ -21,6 +21,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
+  // blacklist: ['dataSlice']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CssBaseline, Grid } from '@material-ui/core';
 import { Header, Map, PlaceDetails, List } from './components';
+import { fetchData, selectItems } from './redux/slices/dataSlice';
+import { useAppSelector, useAppDispatch } from './types';
 
-const App: React.FC = () => {
+const App: React.FC = (): JSX.Element => {
+  const dataRestaurants = useAppSelector(selectItems);
+  const dispatch = useAppDispatch();
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
+  const [bounds, setBounds] = useState({ ne: { lat: 0, lng: 0 }, sw: { lat: 0, lng: 0 } });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+      setCoordinates({ lat: latitude, lng: longitude });
+    });
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch, coordinates, bounds]);
+
+  console.log(dataRestaurants);
+
   return (
     <>
       <CssBaseline />
@@ -12,7 +31,7 @@ const App: React.FC = () => {
           <List />
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map />
+          <Map setCoordinates={setCoordinates} setBounds={setBounds} coordinates={coordinates} />
         </Grid>
       </Grid>
     </>

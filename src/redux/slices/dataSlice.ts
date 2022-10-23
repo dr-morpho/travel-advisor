@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios from 'axios';
-import { DataStatusDef, DataFetch, Status } from '../types';
+import { DataStatus, DataFetch, Status } from '../../types';
+import { URL, options } from '../../api/apiRestaurants'
 
-const quizState: DataStatusDef = {
+const dataState: DataStatus = {
   items: [],
   status: Status.LOADING,
 };
 
-export const fetchData = createAsyncThunk<DataFetch[]>('data/fetchData', async () => {
-  const response = await axios.get('https://opentdb.com/api.php?amount=10');
-  return response.data.results;
+export const fetchData = createAsyncThunk('data/fetchData', async () => {
+  const { data: { data } } = await axios.get(URL, options);
+  return data;
 });
 
 const dataSlice = createSlice({
   name: 'data',
-  initialState: quizState,
+  initialState: dataState,
   reducers: {
     setItems: (state, action) => {
       state.items = action.payload;

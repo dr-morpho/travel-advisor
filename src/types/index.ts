@@ -16,11 +16,16 @@ export enum Status {
 }
 
 export interface DataFetch {
-    category: string;
-    correct_answer: string;
-    difficulty: string;
-    incorrect_answers: string[];
-    question: string;
+    name: string;
+    photo: {
+        images: {
+            large:
+            { url: 'https://media-cdn.tripadvisor.com/media/photo-w/22/29/50/16/fam.jpg' }
+        }
+    };
+    price: string;
+    price_level: string;
+    ranking: string;
 }
 
 export interface QuizType {
@@ -55,10 +60,17 @@ export interface MapProp {
     coordinates: { lat: number; lng: number };
 }
 
-export interface PlaceDetailsProp {
-    place: {
-        name: string;
+export interface FetchProp {
+    ne: {
+        lat: number;
+        lng: number;
+    };
+    sw: {
+        lat: number;
+        lng: number;
     };
 }
+
+
 
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CssBaseline, Grid } from '@material-ui/core';
-import { Header, Map, PlaceDetails, List } from './components';
-import { fetchData, selectItems } from './redux/slices/dataSlice';
-import { useAppSelector, useAppDispatch } from './types';
+import { Header, Map, List } from './components';
+import { fetchData } from './redux/slices/dataSlice';
+import { useAppDispatch } from './types';
 
 const App: React.FC = (): JSX.Element => {
-  const dataRestaurants = useAppSelector(selectItems);
   const dispatch = useAppDispatch();
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [bounds, setBounds] = useState({ ne: { lat: 0, lng: 0 }, sw: { lat: 0, lng: 0 } });
@@ -19,8 +18,6 @@ const App: React.FC = (): JSX.Element => {
   useEffect(() => {
     dispatch(fetchData(bounds));
   }, [dispatch, coordinates, bounds]);
-
-  console.log(dataRestaurants);
 
   return (
     <>

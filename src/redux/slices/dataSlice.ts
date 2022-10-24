@@ -1,28 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import axios from 'axios';
-import { DataStatus, DataFetch, Status } from '../../types';
+import { DataStatus, DataFetch, Status, FetchProp } from '../../types';
 import { URL } from '../../api/apiRestaurants'
-
-interface FetchProp {
-  ne: {
-    lat: number;
-    lng: number;
-  };
-  sw: {
-    lat: number;
-    lng: number;
-  };
-}
-
 
 const dataState: DataStatus = {
   items: [],
   status: Status.LOADING,
 };
 
-
-export const fetchData = createAsyncThunk<any, FetchProp>('data/fetchData', async ({ sw, ne }) => {
+export const fetchData = createAsyncThunk<DataFetch[], FetchProp>('data/fetchData', async ({ sw, ne }) => {
   const { data: { data } } = await axios.get(URL, {
     params: {
       bl_latitude: sw.lat,

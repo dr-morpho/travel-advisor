@@ -10,20 +10,16 @@ import {
 } from '@material-ui/core';
 import useStyles from './styles';
 import PlaceDetails from '../PlaceDetails';
+import { useAppSelector } from '../../types';
+import { selectItems } from '../../redux/slices/dataSlice';
 
 const List: React.FC = (): JSX.Element => {
   const classes = useStyles();
+  const dataRestaurants = useAppSelector(selectItems);
+  console.log(dataRestaurants);
+
   const [type, setType] = React.useState<string>('resturants');
   const [rating, setRating] = React.useState<string>('resturants');
-
-  const places = [
-    { name: 'Cool Place' },
-    { name: 'Best Beer' },
-    { name: 'Best Steak' },
-    { name: 'Cool Place' },
-    { name: 'Best Beer' },
-    { name: 'Best Steak' },
-  ];
 
   return (
     <div className={classes.container}>
@@ -48,9 +44,9 @@ const List: React.FC = (): JSX.Element => {
         </Select>
       </FormControl>
       <Grid container spacing={3} className={classes.list}>
-        {places?.map((elem, index) => (
+        {dataRestaurants?.map((elems, index) => (
           <Grid item key={index} xs={12}>
-            <PlaceDetails place={elem} />
+            <PlaceDetails {...elems} />
           </Grid>
         ))}
       </Grid>

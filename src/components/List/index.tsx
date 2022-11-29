@@ -16,7 +16,7 @@ import { selectItems } from '../../redux/slices/dataSlice';
 const List: React.FC = (): JSX.Element => {
   const classes = useStyles();
   const dataRestaurants = useAppSelector(selectItems);
-  console.log(dataRestaurants);
+  console.log({ data_restaurants: dataRestaurants });
 
   const [type, setType] = React.useState<string>('resturants');
   const [rating, setRating] = React.useState<string>('resturants');

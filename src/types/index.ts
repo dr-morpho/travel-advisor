@@ -15,6 +15,18 @@ export enum Status {
     REJECT = 'reject',
 }
 
+interface AwardsFetch {
+    images: {
+        small: string
+    };
+    display_name: string;
+}
+
+interface CuisineDetails {
+    key: string;
+    name: string;
+}
+
 export interface DataFetch {
     name: string;
     photo: {
@@ -26,6 +38,8 @@ export interface DataFetch {
     price: string;
     price_level: string;
     ranking: string;
+    cuisine: CuisineDetails[];
+    awards: AwardsFetch[];
 }
 
 export interface QuizType {

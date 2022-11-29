@@ -14,8 +14,15 @@ import { LocationOn, Phone } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
 
-const PlaceDetails: React.FC<DataFetch> = ({ name, photo, price_level, ranking }): JSX.Element => {
-  const classes = useStyles();
+const PlaceDetails: React.FC<DataFetch> = ({
+  name,
+  photo,
+  price_level,
+  ranking,
+  awards,
+  cuisine,
+}): JSX.Element => {
+  const { chip } = useStyles();
   return (
     <Card elevation={6}>
       <CardMedia
@@ -43,6 +50,17 @@ const PlaceDetails: React.FC<DataFetch> = ({ name, photo, price_level, ranking }
             {ranking}
           </Typography>
         </Box>
+        {awards?.map((elem) => (
+          <Box my={1} display="flex" justifyContent="space-between" alignItems="center">
+            <img src={elem.images.small} alt={elem.display_name} />
+            <Typography variant="subtitle2" color="textSecondary">
+              {elem.display_name}
+            </Typography>
+          </Box>
+        ))}
+        {cuisine?.map(({ name, key }) => (
+          <Chip key={key} size="small" label={name} className={chip} />
+        ))}
       </CardContent>
     </Card>
   );

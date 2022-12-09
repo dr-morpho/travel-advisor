@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CssBaseline, Grid } from '@material-ui/core';
 import { Header, Map, List } from './components';
-import { fetchData } from './redux/slices/dataSlice';
 import { useAppDispatch } from './types';
+import { fetchData } from './api/fetchData';
 
 const App: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();

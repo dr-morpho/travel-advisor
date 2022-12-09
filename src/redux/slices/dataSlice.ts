@@ -1,29 +1,8 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import axios from 'axios';
-import { DataStatus, DataFetch, Status, FetchProp } from '../../types';
-import { URL } from '../../api/apiRestaurants'
-
-const dataState: DataStatus = {
-  items: [],
-  status: Status.LOADING,
-};
-
-export const fetchData = createAsyncThunk<DataFetch[], FetchProp>('data/fetchData', async ({ sw, ne }) => {
-  const { data: { data } } = await axios.get(URL, {
-    params: {
-      bl_latitude: sw.lat,
-      tr_latitude: ne.lat,
-      bl_longitude: sw.lng,
-      tr_longitude: ne.lng,
-    },
-    headers: {
-      'X-RapidAPI-Key': 'c147c7abb2msh316b607afca252dp1de555jsn6baa6fa29966',
-      'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-    }
-  });
-  return data;
-});
+import { Status } from '../../types';
+import { dataState } from '../initialState';
+import { fetchData } from '../../api/fetchData';
 
 const dataSlice = createSlice({
   name: 'data',

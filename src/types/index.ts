@@ -53,16 +53,12 @@ export interface DataFetch {
     website: string;
     latitude: string;
     longitude: string;
+    rating: string;
+    num_reviews: string;
 }
 
-export interface QuizType {
-    title: string;
-    correct: boolean;
-    isClicked: boolean;
-}
-
-export interface AnswerType {
-    answer: QuizType[];
+export interface ChildClicked {
+    childClicked: string | null;
 }
 
 export interface MapProp {

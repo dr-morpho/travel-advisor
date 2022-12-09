@@ -13,7 +13,7 @@ const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX
   const isDescktop = useMediaQuery('(min-width:600px)');
 
   const mapRestaurants = useMemo(() => {
-    return dataRestaurants?.map(({ name, photo, latitude, longitude }, index) => (
+    return dataRestaurants?.map(({ name, photo, latitude, longitude, rating }, index) => (
       <div key={index} className={markerContainer} lat={latitude} lng={longitude}>
         {!isDescktop ? (
           <LocationOnOutlined color="primary" fontSize="large" />
@@ -29,6 +29,7 @@ const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX
                   : 'https://media-cdn.tripadvisor.com/media/photo-w/0e/b0/5f/4a/caption.jpg'
               }
             />
+            <Rating size="small" value={Number(rating)} readOnly />
           </Paper>
         )}
       </div>

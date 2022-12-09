@@ -25,6 +25,8 @@ const PlaceDetails: React.FC<DataFetch> = ({
   phone,
   web_url,
   website,
+  rating,
+  num_reviews,
 }): JSX.Element => {
   const { chip, subtitle, spacing } = useStyles();
 
@@ -83,6 +85,12 @@ const PlaceDetails: React.FC<DataFetch> = ({
           <Typography variant="subtitle1">Price</Typography>
           <Typography gutterBottom variant="subtitle1">
             {price_level}
+          </Typography>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Rating value={Number(rating)} readOnly />
+          <Typography gutterBottom variant="subtitle1">
+            out of {num_reviews} reviews
           </Typography>
         </Box>
         <Box display="flex" justifyContent="space-between">

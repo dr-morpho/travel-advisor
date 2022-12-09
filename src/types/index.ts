@@ -4,6 +4,13 @@ import type { RootState, AppDispatch } from '../redux/store';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+declare module 'react' {
+    interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+        lat?: string;
+        lng?: string;
+    }
+}
+
 export interface DataStatus {
     items: DataFetch[];
     status: Status;
@@ -40,6 +47,12 @@ export interface DataFetch {
     ranking: string;
     cuisine: CuisineDetails[];
     awards: AwardsFetch[];
+    address: string;
+    phone: string;
+    web_url: string;
+    website: string;
+    latitude: string;
+    longitude: string;
 }
 
 export interface QuizType {

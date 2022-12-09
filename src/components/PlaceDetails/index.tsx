@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DataFetch } from '../../types';
 import {
   Box,
@@ -21,8 +21,49 @@ const PlaceDetails: React.FC<DataFetch> = ({
   ranking,
   awards,
   cuisine,
+  address,
+  phone,
+  web_url,
+  website,
 }): JSX.Element => {
-  const { chip } = useStyles();
+  const { chip, subtitle, spacing } = useStyles();
+
+  const handleOpenSite = useCallback((input: string) => {
+    window.open(input, '_blank');
+  }, []);
+
+  const adressMemo = useMemo(() => {
+    if (address) {
+      return (
+        <Typography
+          display="block"
+          gutterBottom
+          variant="subtitle2"
+          color="textSecondary"
+          className={subtitle}>
+          <LocationOn />
+          {address}
+        </Typography>
+      );
+    }
+  }, [address, subtitle]);
+
+  const phoneMemo = useMemo(() => {
+    if (phone) {
+      return (
+        <Typography
+          display="block"
+          gutterBottom
+          variant="subtitle2"
+          color="textSecondary"
+          className={spacing}>
+          <Phone />
+          {phone}
+        </Typography>
+      );
+    }
+  }, [phone, spacing]);
+
   return (
     <Card elevation={6}>
       <CardMedia
@@ -61,6 +102,16 @@ const PlaceDetails: React.FC<DataFetch> = ({
         {cuisine?.map(({ name, key }) => (
           <Chip key={key} size="small" label={name} className={chip} />
         ))}
+        {adressMemo}
+        {phoneMemo}
+        <CardActions>
+          <Button size="small" color="primary" onClick={() => handleOpenSite(web_url)}>
+            Trip Advisor
+          </Button>
+          <Button size="small" color="primary" onClick={() => handleOpenSite(website)}>
+            Web Site
+          </Button>
+        </CardActions>
       </CardContent>
     </Card>
   );

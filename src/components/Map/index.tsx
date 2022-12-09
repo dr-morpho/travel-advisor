@@ -4,10 +4,12 @@ import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
-import { MapProp, useAppSelector } from '../../types';
+import { MapProp, useAppDispatch, useAppSelector } from '../../types';
 import { selectItems } from '../../redux/slices/dataSlice';
+import { setChildClicked } from '../../redux/slices/itemsSlice';
 
 const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX.Element => {
+  const dispatch = useAppDispatch();
   const { markerContainer, mapContainer, paper, pointer } = useStyles();
   const dataRestaurants = useAppSelector(selectItems);
   const isDescktop = useMediaQuery('(min-width:600px)');
@@ -49,8 +51,7 @@ const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX
           setCoordinates({ lat: event.center.lat, lng: event.center.lng });
           setBounds({ ne: event.marginBounds.ne, sw: event.marginBounds.sw });
         }}
-        // onChildClick={}
-      >
+        onChildClick={(elem) => dispatch(setChildClicked(elem))}>
         {mapRestaurants}
       </GoogleMapReact>
     </div>

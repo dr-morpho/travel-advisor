@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../redux/store';
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 declare module 'react' {
@@ -58,7 +58,7 @@ export interface DataFetch {
 }
 
 export interface ChildClicked {
-    childClicked: string | null;
+    childClicked: any;
 }
 
 export interface MapProp {

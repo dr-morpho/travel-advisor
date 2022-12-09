@@ -12,12 +12,12 @@ import useStyles from './styles';
 import PlaceDetails from '../PlaceDetails';
 import { useAppSelector } from '../../types';
 import { selectItems } from '../../redux/slices/dataSlice';
+import { selectClicked } from '../../redux/slices/itemsSlice';
 
 const List: React.FC = (): JSX.Element => {
   const classes = useStyles();
   const dataRestaurants = useAppSelector(selectItems);
-  console.log({ data_restaurants: dataRestaurants });
-
+  const childClicked = useAppSelector(selectClicked);
   const [type, setType] = React.useState<string>('resturants');
   const [rating, setRating] = React.useState<string>('resturants');
 

@@ -1,17 +1,42 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
-import { MapProp } from '../../types';
+import { MapProp, useAppSelector } from '../../types';
+import { selectItems } from '../../redux/slices/dataSlice';
 
 const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX.Element => {
-  const classes = useStyles();
-  const isMobile = useMediaQuery('(min-width:600px)');
+  const { markerContainer, mapContainer, paper, pointer } = useStyles();
+  const dataRestaurants = useAppSelector(selectItems);
+  const isDescktop = useMediaQuery('(min-width:600px)');
+
+  const mapRestaurants = useMemo(() => {
+    return dataRestaurants?.map(({ name, photo, latitude, longitude }, index) => (
+      <div key={index} className={markerContainer} lat={latitude} lng={longitude}>
+        {!isDescktop ? (
+          <LocationOnOutlined color="primary" fontSize="large" />
+        ) : (
+          <Paper elevation={3} className={paper}>
+            <Typography variant="subtitle2">{name}</Typography>
+            <img
+              className={pointer}
+              alt={name}
+              src={
+                photo
+                  ? photo.images.large.url
+                  : 'https://media-cdn.tripadvisor.com/media/photo-w/0e/b0/5f/4a/caption.jpg'
+              }
+            />
+          </Paper>
+        )}
+      </div>
+    ));
+  }, [dataRestaurants, isDescktop, markerContainer, paper, pointer]);
 
   return (
-    <div className={classes.mapContainer}>
+    <div className={mapContainer}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyDY1M0FDai0oHYxybuUAZ7FmIWm0LKbLa8' }}
         defaultCenter={coordinates}
@@ -24,7 +49,9 @@ const Map: React.FC<MapProp> = ({ setCoordinates, setBounds, coordinates }): JSX
           setBounds({ ne: event.marginBounds.ne, sw: event.marginBounds.sw });
         }}
         // onChildClick={}
-      ></GoogleMapReact>
+      >
+        {mapRestaurants}
+      </GoogleMapReact>
     </div>
   );
 };

@@ -94,6 +94,9 @@ export interface FetchProp {
     };
 }
 
-
+export interface ExtraProps {
+    refProp?: { current: number };
+    selected?: boolean;
+}
 
 

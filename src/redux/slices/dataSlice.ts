@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { Status } from '../../types';
 import { dataState } from '../initialState';
-import { fetchData } from '../../api/fetchData';
+import { fetchData } from '../../utils/fetchData';
 
 const dataSlice = createSlice({
   name: 'data',

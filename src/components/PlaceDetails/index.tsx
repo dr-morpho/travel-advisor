@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { DataFetch } from '../../types';
+import { DataFetch, ExtraProps } from '../../types';
 import {
   Box,
   Typography,
@@ -14,7 +14,7 @@ import { LocationOn, Phone } from '@material-ui/icons';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
 
-const PlaceDetails: React.FC<DataFetch> = ({
+const PlaceDetails: React.FC<DataFetch & ExtraProps> = ({
   name,
   photo,
   price_level,
@@ -27,12 +27,16 @@ const PlaceDetails: React.FC<DataFetch> = ({
   website,
   rating,
   num_reviews,
+  refProp,
+  selected,
 }): JSX.Element => {
   const { chip, subtitle, spacing } = useStyles();
 
   const handleOpenSite = useCallback((input: string) => {
     window.open(input, '_blank');
   }, []);
+
+  // console.log({ refProp, selected });
 
   const adressMemo = useMemo(() => {
     if (address) {
